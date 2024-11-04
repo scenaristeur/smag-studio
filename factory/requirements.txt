@@ -1,0 +1,7 @@
+anthropic
+instructor
+openai
+pydantic
+pydantic_settings
+requests
+# tqdm

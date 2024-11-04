@@ -1,6 +1,10 @@
 # smag-studio
 
-GUI for building llm agents
+## solid persistance
+
+npx @solid/community-server
+
+# GUI for building llm agents
 
 - [ ] Microsoft Autogen https://microsoft.github.io/autogen/0.2/docs/Examples/
 - [ ] Crewai
