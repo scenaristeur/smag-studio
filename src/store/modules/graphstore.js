@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from 'uuid'
-import { Localstorage } from '@/lib/persistance/localstorage.js'
-let persist = new Localstorage()
+import { Solid } from '@/lib/persistance/solid.js'
+let persist = new Solid({ baseURL: 'http://localhost:3000' })
+// import { Localstorage } from '@/lib/persistance/localstorage.js'
+// let persist = new Localstorage()
 // import { FS } from '@/lib/persistance/fs.js'
 // // let persist = new FS()
 // console.log(FS)
@@ -109,14 +111,16 @@ const actions = {
   },
   // Persist Group
 
-  persistGroup(context) {
-    persist.update({
+  async persistGroup(context) {
+    let result = await persist.update({
       groups: context.state.groups,
       graph: context.state.graph.graphData(),
     })
+    console.log('PERSIST RESULT', result)
   },
-  loadGroups(context) {
-    const loaded = persist.load()
+  async loadGroups(context) {
+    const loaded = await persist.load()
+    console.log('LOADED', loaded)
     console.log(loaded, context)
     context.state.groups = loaded.groups
     context.state.nodes = loaded.graph.nodes

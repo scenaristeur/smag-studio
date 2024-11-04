@@ -13,6 +13,7 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "3d-force-graph": "^1.73.4",
+    "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "three": "^0.170.0",
     "three-spritetext": "^1.9.0",
