@@ -2,7 +2,28 @@
 
 ## solid persistance
 
+
+
+- https://communitysolidserver.github.io/CommunitySolidServer/latest/usage/starting-server/
+- https://communitysolidserver.github.io/configuration-generator/v7/
+- config https://github.com/CommunitySolidServer/CommunitySolidServer/tree/main/config
+
+-> npm install -g @solid/community-server
+-> community-solid-server -c @css:config/default.json -f data/
+
+```
+# default in memory
 npx @solid/community-server
+# with config & persistance
+community-solid-server -c @css:config/default.json -f data/
+# or local install with config 
+npm install -g @solid/community-server
+
+community-solid-server  -f data/
+
+community-solid-server -c config/solid_config.json -f data/
+
+```
 
 # GUI for building llm agents
 

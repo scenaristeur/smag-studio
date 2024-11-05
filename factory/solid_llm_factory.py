@@ -9,6 +9,7 @@ headers = {'Accept': 'application/json'}
 groups_folder = requests.get(
     'http://localhost:3000/data/groups/', headers=headers)
 json_groups = groups_folder.json()[0]
+print(json_groups)
 groups_ids = json_groups['http://www.w3.org/ns/ldp#contains']
 print("\n Groups", json.dumps(groups_ids, indent=4))
 

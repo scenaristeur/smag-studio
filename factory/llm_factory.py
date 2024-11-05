@@ -64,6 +64,7 @@ if __name__ == "__main__":
         response_model=CompletionModel,
         messages=messages,
     )
+    print (completion)
     assert isinstance(completion, CompletionModel)
 
     print(f"Response: {completion.response}\n")

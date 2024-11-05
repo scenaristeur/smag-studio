@@ -130,7 +130,61 @@ const actions = {
   async saveNode({ dispatch, commit }, node) {
     console.log(dispatch, commit, node)
     //   commit('setNodes', [...state.nodes, node])
+    
   },
+  async   upload  (context, files){
+// TODO manage multiple files
+for (let f of files){
+  let content = new FileReader();
+
+  content.addEventListener("load", e => {
+    // console.log(e.target.result,)
+    let result = JSON.parse(content.result)
+    console.log("result",result)
+    console.log("groups",result.groups)  
+      console.log("nodes",result.graph.nodes)
+    console.log("links",result.graph.links)
+    context.state.groups = result.groups
+    context.state.nodes = result.graph.nodes
+    context.state.links = result.graph.links
+//     let groups = context.state.groups
+// groups.concat(result.groups)
+
+// context.state.groups = groups
+// console.log("GROUPES", groups, context.state.groups)
+    // context.state.groups = [...context.state.groups, result.groups]
+    // context.state.nodes = [...context.state.nodes, result.graph.nodes]
+    // context.state.links = [...context.state.links, result.graph.links]
+// console.log(context.state.groups)
+  });
+  
+  content.readAsText(f);
+
+
+}
+
+
+
+  },
+  async download(context){
+    let data = {
+      groups: context.state.groups,
+      graph: context.state.graph.graphData(),
+    }
+
+    let exportName = prompt("Please enter the filename", Date.now());
+    if (exportName != null) {
+
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",     dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+    }
+
+  }
 }
 
 export default {

@@ -7,6 +7,8 @@ pip install -r requirements.txt
 
 ```
 
+copy .ev_example to .env
+
 # inspiration
 
 - https://www.youtube.com/watch?v=p6mkittu8Zc
