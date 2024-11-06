@@ -1,3 +1,5 @@
 .env
 .venv
+.cache
 config/__pycache__
+OAI_CONFIG_LIST

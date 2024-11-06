@@ -4,4 +4,6 @@ openai
 pydantic
 pydantic_settings
 requests
+autogen~=0.2
+simple-term-menu
 # tqdm
