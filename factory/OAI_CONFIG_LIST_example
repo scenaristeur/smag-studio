@@ -1,6 +1,6 @@
 [
     {
-        "model": "llama-pro-8b-instruct",
+        "model": "Llama-3.2",
         "api_key": "<your Azure OpenAI API key here>",
         "base_url": "http://localhost:5677/v1"
     }

@@ -24,18 +24,18 @@ config_list = autogen.config_list_from_json(
             # "gpt",
         }
     }
-    )
+)
 
 llm_config = {
     "config_list": config_list,
     "timeout": 120,
-    "cache_seed": 250,  # seed for caching and reproducibility
+    # "cache_seed": 250,  # seed for caching and reproducibility
 }
 
 # get groups
 # choose group
 # get agents
-# run 
+# run
 
 
 # cathy = ConversableAgent(
@@ -56,19 +56,18 @@ llm_config = {
 
 # result = joe.initiate_chat(cathy, message="Cathy, tell me a joke.", max_turns=2)
 
-solid = Solid(baseUrl= 'http://localhost:3000')
+solid = Solid(baseUrl='http://localhost:3000')
 
 groups_ids = solid.get_groups()
 print("get groups", groups_ids)
 
 nodes_ids = solid.get_nodes()
-print ("get nodes", nodes_ids)
+print("get nodes", nodes_ids)
 
 solid.nodes_in_group()
 solid.clean_nodes()
 
-print ("GGGGG", solid.groups)
-
+print("GGGGG", solid.groups)
 
 
 # def main():
@@ -82,18 +81,40 @@ print ("GGGGG", solid.groups)
 
 agents = {}
 first = None
-for node in solid.nodes : 
-    if first is None :
+for node in solid.nodes:
+    if first is None:
         first = node['name']
-    agents[node['name']] =  ConversableAgent(
-    node['name'],
-    system_message=node['system_message'],
-    # llm_config={"config_list": [{"model": "gpt-4", "temperature": 0.9, "api_key": os.environ.get("OPENAI_API_KEY")}]},
+    agents[node['name']] = ConversableAgent(
+        node['name'],
+        system_message=node['system_message'],
+        # llm_config={"config_list": [{"model": "gpt-4", "temperature": 0.9, "api_key": os.environ.get("OPENAI_API_KEY")}]},
         llm_config=llm_config,
-    human_input_mode="NEVER",  # Never ask for human input.
+        human_input_mode="NEVER",  # Never ask for human input.
+    )
+
+
+user_proxy = autogen.UserProxyAgent(
+    name="User_proxy",
+    system_message="A human admin.",
+    # code_execution_config={
+    #     "last_n_messages": 2,
+    #     "work_dir": "groupchat",
+    #     "use_docker": False,
+    # },  # Please set use_docker=True if docker is available to run the generated code. Using docker is safer than running the generated code directly.
+    human_input_mode="TERMINATE",
 )
 
-first_agent = agents.pop(first)   
-print(first_agent) 
-print(agents.values())
-result = first_agent.initiate_chat(agents.pop('joe'), message="Raconte-moi une blague.", max_turns=2)
+# first_agent = agents.pop(first)
+# print(first_agent)
+# print(agents.values())
+# result = first_agent.initiate_chat(agents.pop('joe'), message="Raconte-moi une blague.", max_turns=2)
+groupchat = autogen.GroupChat(
+    agents=agents.values(), messages=[], max_round=6,
+    speaker_selection_method="auto",
+    allow_repeat_speaker=False,)
+manager = autogen.GroupChatManager(
+    groupchat=groupchat, llm_config=llm_config)
+
+user_proxy.initiate_chat(
+    manager, message="Imaginez une blague"
+)

@@ -2,4 +2,5 @@
 .venv
 .cache
 config/__pycache__
+libs/__pycache__/
 OAI_CONFIG_LIST
