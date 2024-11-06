@@ -29,7 +29,7 @@ config_list = autogen.config_list_from_json(
 llm_config = {
     "config_list": config_list,
     "timeout": 120,
-    # "cache_seed": 250,  # seed for caching and reproducibility
+    "cache_seed": 25,  # seed for caching and reproducibility
 }
 
 # get groups
@@ -89,7 +89,7 @@ for node in solid.nodes:
         system_message=node['system_message'],
         # llm_config={"config_list": [{"model": "gpt-4", "temperature": 0.9, "api_key": os.environ.get("OPENAI_API_KEY")}]},
         llm_config=llm_config,
-        human_input_mode="NEVER",  # Never ask for human input.
+        human_input_mode="TERMINATE",  # Never ask for human input.
     )
 
 
@@ -106,12 +106,13 @@ user_proxy = autogen.UserProxyAgent(
 
 # first_agent = agents.pop(first)
 # print(first_agent)
-# print(agents.values())
+print(agents.values())
 # result = first_agent.initiate_chat(agents.pop('joe'), message="Raconte-moi une blague.", max_turns=2)
 groupchat = autogen.GroupChat(
     agents=agents.values(), messages=[], max_round=6,
     speaker_selection_method="auto",
-    allow_repeat_speaker=False,)
+    allow_repeat_speaker=False,
+)
 manager = autogen.GroupChatManager(
     groupchat=groupchat, llm_config=llm_config)
 

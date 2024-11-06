@@ -1,0 +1,9 @@
+// Knowledge Graph
+digraph {
+	1 [label="Schrodinger's Equation" color="#FF0000"]
+	2 [label="Quantum Field Theory" color="#00FFFF"]
+	3 [label=Entanglement color="#800080"]
+	4 [label=Superposition color="#0000FF"]
+	1 -> 2 [label="Quantum Field Theory and Entanglement" color="#808080"]
+	2 -> 3 [label="Entanglement and Quantum Field Theory" color="#CCFF00"]
+}

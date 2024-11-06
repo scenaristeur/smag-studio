@@ -2,8 +2,6 @@
 
 ## solid persistance
 
-
-
 - https://communitysolidserver.github.io/CommunitySolidServer/latest/usage/starting-server/
 - https://communitysolidserver.github.io/configuration-generator/v7/
 - config https://github.com/CommunitySolidServer/CommunitySolidServer/tree/main/config
@@ -16,7 +14,7 @@
 npx @solid/community-server
 # with config & persistance
 community-solid-server -c @css:config/default.json -f data/
-# or local install with config 
+# or local install with config
 npm install -g @solid/community-server
 
 community-solid-server  -f data/
@@ -27,12 +25,14 @@ community-solid-server -c config/solid_config.json -f data/
 
 # GUI for building llm agents
 
-- [ ] Microsoft Autogen https://microsoft.github.io/autogen/0.2/docs/Examples/
+- [ x ] Microsoft Autogen https://microsoft.github.io/autogen/0.2/docs/Examples/ (upload cathy_and_joe_autogen.json)
 - [ ] Crewai
 - [ ] langgraph
 - [ ] MemGPT/ Letta Agents
 - [ ] Human Agents
-- [ ] Tools Agents
+- [ ] Tools Agents (agents with tools)
+- [ ] LLM Agents
+- [ ] https://github.com/Maximilian-Winter/ToolAgents & https://llama-cpp-agent.readthedocs.io/en/latest/get-started/#llamacpp-server-provider
 - Other LLM agents...
 
 ## Agents Teams/Crew/Graph

@@ -61,7 +61,7 @@ export default {
         id: null,
         name: "",
         description: "",
-        system_message: "You are a helpuf Agent",
+        system_message: "You are a helpfull Agent",
         llm_config: "",
         human_input_mode: "",
         created: "",

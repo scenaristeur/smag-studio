@@ -5,5 +5,10 @@ pydantic
 pydantic_settings
 requests
 autogen~=0.2
+autogen-agentchat[autobuild]~=0.2
 simple-term-menu
+#vllm
+#fastchat
+letta
+ipython
 # tqdm
