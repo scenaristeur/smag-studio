@@ -7,14 +7,12 @@ import { hexToRGB } from 'neo-blessed/lib/colors'
 
 class App extends Component {
   render() {
-    const items = ['one', 'two', 'three', 'four']
     return (
       <box
         label="Organizm dashboard"
         border={{ type: 'line' }}
         style={{ border: { fg: 'cyan' } }}
       >
-        <list mouse={true} key={true} items={items}></list>
         <InnerBox position="left" />
         <InnerBox position="right" />
         <ProgressBar />
@@ -61,7 +59,10 @@ class InnerBox extends Component {
       },
     }
     const backgroundForSecondBox = this.props.backgroundForSecondBox
-
+    let items = []
+    for (let i = 0; i < 100; i++) {
+      items.push(`Item ${i}`)
+    }
     return (
       <box
         label={this.state.hey ? 'First step' : 'Second step'}
@@ -84,6 +85,27 @@ class InnerBox extends Component {
           ]}
         >
           Second box.
+          <list
+            // https://github.com/Yomguithereal/react-blessed/issues/62
+            label="List"
+            mouse={true}
+            keys={true}
+            class={{
+              border: { type: 'line' },
+              style: { border: { fg: 'blue' } },
+            }}
+            width="50%"
+            height="50%"
+            left="25%"
+            top="25%"
+            style={{
+              item: { fg: 'black' },
+              selected: { fg: 'white', bg: 'black' },
+            }}
+            items={items}
+            onSelect={item => console.error('selected', item.content)}
+            // onSelect={() => this.addItem('tr')}
+          />
         </box>
       </box>
     )
@@ -94,27 +116,30 @@ class ProgressBar extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { completion: 0 }
+    this.state = { progress: 0, color: 'blue' }
 
     const interval = setInterval(() => {
-      if (this.state.completion >= 100) return clearInterval(interval)
+      if (this.state.progress >= 100) return clearInterval(interval)
 
-      this.setState({ completion: this.state.completion + 10 })
-    }, 1000)
+      this.setState({ progress: this.state.progress + 1 })
+    }, 50)
   }
 
   render() {
+    const { progress } = this.state,
+      label = `Progress - ${progress}%`
     return (
       <progressbar
         orientation="horizontal"
-        filled={this.state.completion}
+        filled={progress}
         top="80%"
         left="center"
-        height="15%"
-        width="80%"
-        label="progress"
+        height="10%"
+        width="40%"
+        label={label}
+        onComplete={() => this.setState({ color: 'green' })}
         border={{ type: 'line' }}
-        style={{ border: { fg: 'red' }, bar: { bg: 'red' } }}
+        style={{ border: { fg: 'red' }, bar: { bg: this.state.color } }}
       />
     )
   }
