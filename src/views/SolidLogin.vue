@@ -1,6 +1,8 @@
 <template>
   <div>
-
+    - solid available ? /persist system (solid/ filesystem)
+- solid mode (inmemory / file + auth) <br>
+- 
 
 <!-- <div v-if="version!= null"> -->
   <div class="container text-center">
