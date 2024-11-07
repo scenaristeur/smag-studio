@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
-import blessed from 'blessed'
-import { render } from 'react-blessed'
+import blessed from 'neo-blessed'
+import { createBlessedRenderer } from 'react-blessed'
+
+const render = createBlessedRenderer(blessed)
 import { hexToRGB } from 'neo-blessed/lib/colors'
 
 class App extends Component {
   render() {
+    const items = ['one', 'two', 'three', 'four']
     return (
       <box
         label="Organizm dashboard"
         border={{ type: 'line' }}
         style={{ border: { fg: 'cyan' } }}
       >
+        <list mouse={true} key={true} items={items}></list>
         <InnerBox position="left" />
         <InnerBox position="right" />
         <ProgressBar />
@@ -41,7 +45,6 @@ class InnerBox extends Component {
 
     const stylesheet = {
       bordered: {
-        height: '50%',
         border: {
           type: 'line',
         },
@@ -51,7 +54,13 @@ class InnerBox extends Component {
           },
         },
       },
+      magentaBackground: {
+        style: {
+          bg: 'magenta',
+        },
+      },
     }
+    const backgroundForSecondBox = this.props.backgroundForSecondBox
 
     return (
       <box
@@ -65,8 +74,17 @@ class InnerBox extends Component {
       >
         {this.state.hey ? 'Hey...' : 'Ho...'}
 
-        <box class={stylesheet.bordered}>First box.</box>
-        {/* <box class={stylesheet.bordered}>Second box.</box> */}
+        <box class={[stylesheet.bordered, stylesheet.magentaBackground]}>
+          First box.
+        </box>
+        <box
+          class={[
+            stylesheet.bordered,
+            backgroundForSecondBox && stylesheet.magentaBackground,
+          ]}
+        >
+          Second box.
+        </box>
       </box>
     )
   }
