@@ -1,75 +1,57 @@
-import React, { Component } from 'react'
-import blessed from 'blessed'
-import { render } from 'react-blessed'
+import React from 'react'
+import blessed from 'neo-blessed'
+import { createBlessedRenderer } from 'react-blessed'
+
+const render = createBlessedRenderer(blessed)
 
 // Rendering a simple centered box
-class App extends Component {
-  render() {
-    const [count, setCount] = React.useState(0)
+const App = () => {
+  const [count, setCount] = React.useState(0)
+  const timer = React.useRef()
 
-    React.useEffect(() => {
-      const interval = setInterval(() => {
-        setCount(count => count + 1)
-      }, 1000)
-      return () => clearInterval(interval)
-    }, [])
+  React.useEffect(() => {
+    timer.current = setInterval(() => {
+      setCount(count + 1)
+    }, 1000)
+    return () => {
+      clearInterval(timer.current)
+    }
+  }, [count])
+  const dateTime = new Date().toLocaleString('fr-FR', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+  })
 
-    const dateTime = new Date().toLocaleString('fr-FR', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-    })
+  return (
+    <box
+      top="center"
+      left="center"
+      width="50%"
+      height="50%"
+      border={{ type: 'line' }}
+      style={{ border: { fg: 'blue' } }}
+    >
+      {`Date: ${dateTime}
 
-    return (
-      <box
-        top="center"
-        left="center"
-        width="50%"
-        height="50%"
-        border={{ type: 'line' }}
-        style={{ border: { fg: 'blue' } }}
-      >
-        {`Date : ${dateTime}
-        Counter is ${count}`}
-      </box>
-    )
-  }
+      Count: ${count}`}
+    </box>
+  )
 }
 
 // Creating our screen
 const screen = blessed.screen({
   autoPadding: true,
   smartCSR: true,
-  title: 'Organizm Dashboard',
+  title: 'react-blessed hello world',
 })
 
 // Adding a way to quit the program
 screen.key(['escape', 'q', 'C-c'], function (ch, key) {
   return process.exit(0)
-})
-
-screen.key(['f1'], function (ch, key) {
-  return screen.fullscreen()
-})
-
-screen.key(['c'], function (ch, key) {
-  console.log('c pressed')
-  return screen.render()
-})
-screen.key(['u'], function (ch, key) {
-  console.log('u pressed')
-  return screen.render()
-})
-screen.key(['r'], function (ch, key) {
-  console.log('r pressed')
-  return screen.render()
-})
-screen.key(['d'], function (ch, key) {
-  console.log('d pressed')
-  return screen.render()
 })
 
 // Rendering the React app using our screen

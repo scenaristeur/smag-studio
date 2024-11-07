@@ -162,6 +162,7 @@ class Form extends Component {
         keys
         vi
         focused
+        autoFocus
         label="Enter your name:"
         onSubmit={this.submit}
         onReset={this.cancel}
