@@ -19,8 +19,13 @@ npm install -g @solid/community-server
 
 community-solid-server  -f data/
 
-community-solid-server -c config/solid_config.json -f data/
+#community-solid-server -c config/solid_config.json -f data/
 
+with pods
+npx @solid/community-server -c @css:config/file.json -f data/
+- https://communitysolidserver.github.io/CommunitySolidServer/latest/usage/client-credentials/
+create token
+![alt text](image.png)
 ```
 
 # GUI for building llm agents

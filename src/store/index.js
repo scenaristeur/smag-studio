@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 // import core from './modules/core'
 // import nodes from './modules/nodes'
 import graphstore from './modules/graphstore'
+import solid from './modules/solid'
 
 export default createStore({
   state: {},
@@ -11,6 +12,6 @@ export default createStore({
   modules: {
     // core,
     // nodes,
-    graphstore,
+    graphstore, solid
   },
 })

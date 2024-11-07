@@ -7,8 +7,10 @@ requests
 autogen~=0.2
 autogen-agentchat[autobuild]~=0.2
 simple-term-menu
+yamldb
 #vllm
 #fastchat
-letta
-ipython
+#letta
+#ipython
+
 # tqdm

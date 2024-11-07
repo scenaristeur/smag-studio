@@ -6,6 +6,7 @@ import EditorView from "./views/EditorView.vue";
 import AgentList from "./views/AgentList.vue";
 import GroupList from "./views/GroupList.vue";
 import GroupEditor from "./views/GroupEditor.vue";
+import SolidLogin from "./views/SolidLogin.vue"
 </script>
 
 <template>
@@ -25,6 +26,7 @@ import GroupEditor from "./views/GroupEditor.vue";
       </nav>
     </div>
   </header>
+  <SolidLogin />
   <EditorView />
   <AgentList />
   <GroupEditor />
