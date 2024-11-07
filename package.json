@@ -11,6 +11,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@inrupt/solid-client-authn-core": "^2.2.7",
     "@popperjs/core": "^2.11.8",
     "3d-force-graph": "^1.73.4",
     "axios": "^1.7.7",

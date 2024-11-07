@@ -134,3 +134,8 @@ npm run lint
 - https://github.com/vasturiano/d3-force-cluster-3d
 - https://github.com/vasturiano/d3-force-3d
 - https://github.com/vasturiano/3d-force-graph/issues/298
+
+
+# solid browser auth 
+- https://communitysolidserver.github.io/CommunitySolidServer/latest/usage/client-credentials/
+- https://stackoverflow.com/questions/43842793/basic-authentication-with-fetch
