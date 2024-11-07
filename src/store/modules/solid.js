@@ -2,6 +2,8 @@
 //import axios from 'axios'
 
 import { createDpopHeader, generateDpopKeyPair, buildAuthenticatedFetch } from '@inrupt/solid-client-authn-core';
+import {  login, getDefaultSession, handleIncomingRedirect, fetch } from '@inrupt/solid-client-authn-browser'
+import { getSolidDataset, saveSolidDatasetAt } from "@inrupt/solid-client";
 
 const state = () => ({
   baseUrl: "http://localhost:3000",
@@ -50,6 +52,90 @@ const actions = {
   //     return error
   //   }
   // },
+//   async  completeLogin() {
+//     let session = await handleIncomingRedirect();
+//     console.log(session)
+//  },
+
+ async  connect1() {
+  // 1. Call the handleIncomingRedirect() function,
+  //    - Which completes the login flow if redirected back to this page as part of login; or
+  //    - Which is a No-op if not part of login.
+  await handleIncomingRedirect();
+
+  // 2. Start the Login Process if not already logged in.
+  if (!getDefaultSession().info.isLoggedIn) {
+    await login({
+      oidcIssuer: "http://localhost:3000",
+      redirectUrl: new URL("/", window.location.href).toString(),
+      clientName: "Smag Studio"
+    });
+  }
+
+  // ...
+  const exampleSolidDatasetURL = "http://localhost:3000/david/truc/";
+  
+  // 3. Make authenticated requests by passing `fetch` to the solid-client functions.
+  // For example, the user must be someone with Read access to the specified URL.
+  const myDataset = await getSolidDataset(
+    exampleSolidDatasetURL, 
+    { fetch: fetch }  // fetch function from authenticated session
+  );
+
+  console.log("myDataset",myDataset)
+  // ...
+  
+  // For example, the user must be someone with Write access to the specified URL.
+  // const savedSolidDataset = await saveSolidDatasetAt(
+  //   exampleSolidDatasetURL,
+  //   myChangedDataset,
+  //   { fetch: fetch }  // fetch function from authenticated session
+  // );
+  // console.log("savedDataset", saveSolidDatasetAt)
+}
+,
+
+  async connect11(){
+
+    let session = await handleIncomingRedirect();
+    console.log(session)
+    if (!session.isLoggedIn && !getDefaultSession().info.isLoggedIn) {
+      let session = await login({
+        oidcIssuer: "http://localhost:3000",
+        redirectUrl: new URL("/", window.location.href).toString(),
+        clientName: "Smag Studio"
+      });
+      console.log(session)
+    }else {
+      console.log("logged in", session)
+    }
+  },
+
+  async connectHS(context, user){
+    let indexResponse = await fetch(context.state.baseUrl+'/.account/');
+    let { controls } = await indexResponse.json();
+
+    // And then we log in to the account API
+    let response1 = await fetch(controls.password.login, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ email: user.email, password: user.password }),
+    });
+    // This authorization value will be used to authenticate in the next step
+    const { authorization } = await response1.json();
+    console.log(authorization)
+
+    let responsePUT = await fetch('http://localhost:3000/david/truc/file.json', {
+      method: 'PUT',
+      headers: { authorization: `CSS-Account-Token ${authorization}`, 'content-type': 'application/json' },
+      // The name field will be used when generating the ID of your token.
+      // The WebID field determines which WebID you will identify as when using the token.
+      // Only WebIDs linked to your account can be used.
+      body: JSON.stringify({ name: 'mon fichier', webId: 'http://localhost:3000/david/profile/card#me' }),
+    });
+
+    console.log("responsePUT", responsePUT)
+  },
 
 async connect(context, user){
   try{
@@ -134,17 +220,35 @@ const response3 = await authFetch('http://localhost:3000/private');
 console.log("response3",response3)
 
 
-const response4 = await authFetch('http://localhost:3000/david/profile/card#me');
+// const response4 = await authFetch('http://localhost:3000/david/profile/card#me');
 
-console.log("response4",response4)
+// console.log("response4",response4)
 
+
+// let   headers= {
+//   Accept: "application/json"
+//   }
+//   const response5 = await authFetch('http://localhost:3000/david/profile/card#me', headers);
+  
+//   console.log("response5",response5)
+
+  let responsePUT = await authFetch('http://localhost:3000/david/truc/file.json', {
+    method: 'PUT',
+    headers: {  'content-type': 'application/json' },
+    // The name field will be used when generating the ID of your token.
+    // The WebID field determines which WebID you will identify as when using the token.
+    // Only WebIDs linked to your account can be used.
+    body: JSON.stringify({ name: 'mon fichier', webId: 'http://localhost:3000/david/profile/card#me', type: "aztek" }),
+  });
+
+  console.log("responsePUT", responsePUT)
 
 let   headers= {
   Accept: "application/json"
   }
-  const response5 = await authFetch('http://localhost:3000/david/profile/card#me', headers);
+  const responseRead = await authFetch('http://localhost:3000/david/truc/file.json', headers);
   
-  console.log("response5",response5)
+  console.log("responseRead",await responseRead.json())
 
   }
   catch(e){

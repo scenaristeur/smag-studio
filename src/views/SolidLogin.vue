@@ -62,9 +62,9 @@ export default {
     }
   },
 
-//   mounted(){
-// this.findApiUrls()
-//   },
+  mounted(){
+this.$store.dispatch('solid/connect')
+  },
   methods:{
     // findApiUrls(){
     //   this.$store.dispatch('solid/findApiUrls')
