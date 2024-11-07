@@ -15,7 +15,7 @@ builder = AgentBuilder(config_file_or_env=config_file_or_env,
                        builder_model='Llama-3.2', agent_model='Llama-3.2')
 
 # building_task = "Find a paper on arxiv by programming, and analyze its application in some domain. For example, find a latest paper about gpt-4 on arxiv and find its potential applications in software."
-building_task = "créer une bande dessinée pour apprendre à coder une page HTML"
+building_task = "créer un jeu genre 'Le livre dont vous êtes le héros' pour enseigner à coder une page HTML"
 
 agent_list, agent_configs = builder.build(
     building_task, default_llm_config, coding=True)
@@ -42,7 +42,7 @@ def start_task(execution_task: str, agent_list: list, llm_config: dict):
 
 start_task(
     # execution_task="Find a recent paper about gpt-4 on arxiv and find its potential applications in software.",
-    execution_task="créer une bande dessinée pour apprendre à coder une page HTML",
+    execution_task="créer un jeu genre 'Le livre dont vous êtes le héros' pour enseigner à coder une page HTML",
     agent_list=agent_list,
     llm_config=default_llm_config
 )

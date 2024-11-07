@@ -1,0 +1,18 @@
+{
+  "name": "organism-exp",
+  "version": "1.0.0",
+  "description": "https://nodejs.org/en/learn/asynchronous-work/understanding-processnexttick",
+  "main": "test.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chokidar": "^4.0.1",
+    "inquirer": "^12.0.1",
+    "uuid": "^11.0.2"
+  }
+}
