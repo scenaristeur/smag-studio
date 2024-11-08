@@ -12,14 +12,20 @@
 ```
 # default in memory
 npx @solid/community-server
-# with config & persistance
-community-solid-server -c @css:config/default.json -f data/
-# or local install with config
+
+# or local install with persistance
 npm install -g @solid/community-server
 
-community-solid-server  -f data/
+community-solid-server -c @css:config/file.json -f data/
 
-#community-solid-server -c config/solid_config.json -f data/
+# then signup for an account at  http://localhost:3000/.account/login/password/register/
+# create a pod
+# create a token
+# copy .env_example to .env
+# put your token identifier and token secret in .env
+
+
+
 
 with pods
 npx @solid/community-server -c @css:config/file.json -f data/
@@ -27,6 +33,8 @@ npx @solid/community-server -c @css:config/file.json -f data/
 create token
 ![alt text](image.png)
 ```
+
+you can use Penny to edit data on your http://localhost:3000/ pod https://penny.vincenttunru.com/
 
 # GUI for building llm agents
 
@@ -135,7 +143,7 @@ npm run lint
 - https://github.com/vasturiano/d3-force-3d
 - https://github.com/vasturiano/3d-force-graph/issues/298
 
+# solid browser auth
 
-# solid browser auth 
 - https://communitysolidserver.github.io/CommunitySolidServer/latest/usage/client-credentials/
 - https://stackoverflow.com/questions/43842793/basic-authentication-with-fetch
